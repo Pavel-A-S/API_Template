@@ -1,0 +1,332 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Big Game"
+  contact:
+    email: 'pavel.a.s.1985@gmail.com'
+host: "localhost:3000"
+basePath: "/api/v1"
+tags:
+- name: "Player"
+  description: "This is about players"
+- name: "Market"
+  description: "This is about markets"
+- name: "Lot"
+  description: "This is about lots"
+- name: "Advertisement"
+  description: "This is about advertisements"
+schemes:
+- "http"
+paths:
+  /players/{id}:
+    get:
+      tags:
+      - "Player"
+      summary: "Finds player by ID"
+      description: "Returns player info"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Player id must be provided"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/player"
+        "404":
+          description: "Player wasn't found"
+  /markets/{id}:
+    get:
+      tags:
+      - "Market"
+      summary: "Player finds market by ID"
+      description: "Returns info about market"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Market id must be provided"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/market"
+        "404":
+          description: "Market wasn't found"
+  /lots/{id}/for_sale:
+    put:
+      tags:
+      - "Lot"
+      summary: "Player sends items to market"
+      description: "Sends items to market as a lot"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of lot of items which has to be sent"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Fill conditions (secret_key is player ID)"
+        required: true
+        schema:
+          $ref: "#/definitions/request_for_sending_items_to_market"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/lot"
+        "404":
+          description: "Lot wasn't found"
+        "422":
+          description: "Validation exception"
+  /lots/{id}/ship_to_player:
+    put:
+      tags:
+      - "Lot"
+      summary: "Player buys items"
+      description: "Sends items to storage as a lot"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of lot of items which have to be bought"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Fill conditions (secret_key is player ID)"
+        required: true
+        schema:
+          $ref: "#/definitions/request_for_lot_purchase"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/lot"
+        "404":
+          description: "Lot wasn't found"
+        "422":
+          description: "Validation exception"
+  /lots/{id}/recall:
+    put:
+      tags:
+      - "Lot"
+      summary: "Player returns items to storage"
+      description: "Sends whole lot to storage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of lot of items which have to be recalled"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Fill conditions (secret_key is player ID)"
+        required: true
+        schema:
+          $ref: "#/definitions/request_for_lot_recall"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/lot"
+        "404":
+          description: "Lot wasn't found"
+        "422":
+          description: "Validation exception"
+  /advertisements:
+    get:
+      tags:
+      - "Advertisement"
+      summary: "Player receives all advertisements"
+      description: "Returns info about all advertisements"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - name: "amount"
+        in: "query"
+        description: "Filter by amount"
+        type: "integer"
+      - name: "name"
+        in: "query"
+        description: "Filter by name"
+        type: "string"
+      - name: "price"
+        in: "query"
+        description: "Filter by price"
+        type: "integer"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/advertisements"
+    post:
+      tags:
+      - "Advertisement"
+      summary: "Player creates advertisement"
+      description: "Publishes advertisement for lot"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Fill data for request"
+        required: true
+        schema:
+          type: 'object'
+          properties:
+            lot_id:
+              type: integer
+              example: '17'
+            body:
+              type: string
+              example: 'Best advertisement ever'
+          xml:
+            name: advertisement
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/advertisement"
+        "404":
+          description: "Lot wasn't found"
+        "422":
+          description: "Validation exception"
+definitions:
+  advertisement:
+    type: 'object'
+    properties:
+      id:
+        type: 'integer'
+        example: '1'
+      body:
+        type: 'string'
+        example: 'item3_1 - this is absolutely unique item'
+      lot:
+        $ref: "#/definitions/lot"
+    xml:
+      name: advertisement
+  item:
+    type: object
+    properties:
+      id:
+        type: 'integer'
+        example: '1'
+      name:
+        type: 'string'
+        example: 'item3_1'
+  player:
+    type: 'object'
+    properties:
+      id:
+        type: integer
+        example: '1'
+      nickname:
+        type: string
+        example: 'Player1'
+      currency_amount:
+        type: integer
+        example: '100'
+      storage_id:
+        type: integer
+        example: '1'
+    xml:
+      name: Player
+  lot:
+    type: 'object'
+    properties:
+      id:
+        type: 'integer'
+        example: '1'
+      item-id:
+        type: 'integer'
+        example: '1'
+      amount:
+        type: 'integer'
+        example: '50'
+      price:
+        type: 'integer'
+        example: '356'
+      status:
+        type: 'string'
+        example: 'status1'
+      item:
+        $ref: "#/definitions/item"
+    xml:
+      name: 'lot'
+  market:
+    type: 'object'
+    properties:
+      id:
+        type: 'integer'
+        example: '1'
+      lots:
+        type: 'object'
+        properties:
+          lot:
+            $ref: "#/definitions/lot"
+  advertisements:
+    type: 'object'
+    properties:
+      advertisement:
+        $ref: "#/definitions/advertisement"
+  request_for_sending_items_to_market:
+    type: 'object'
+    properties:
+      secret_key:
+        type: 'integer'
+        example: '1'
+      amount:
+        type: 'integer'
+        example: '50'
+      price:
+        type: 'integer'
+        example: '150'
+    xml:
+      name: 'lot'
+  request_for_lot_purchase:
+    type: 'object'
+    properties:
+      secret_key:
+        type: 'integer'
+        example: '1'
+      amount:
+        type: 'integer'
+        example: '50'
+    xml:
+      name: 'lot'
+  request_for_lot_recall:
+    type: 'object'
+    properties:
+      secret_key:
+        type: 'integer'
+        example: '1'
+    xml:
+      name: 'lot'
