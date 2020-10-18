@@ -12,33 +12,27 @@ STATUSES = {
 
 GAME_ATTRIBUTES = [
   {
-    player_attributes: { nickname: 'player1', currency_amount: 100 },
+    player_attributes: { nickname: 'player1', currency_amount: 7000 },
     items: [
-      {
-        name: 'item1_1', amount: 100, price: 101, status: STATUSES[:on_market]
-      },
-      { name: 'item1_2', amount: 100, price: 102, status: STATUSES[:storage] },
-      { name: 'item1_3', amount: 100, price: 103, status: STATUSES[:on_market] }
+      { name: 'item1_1', amount: 10, price: 101, status: STATUSES[:on_market] },
+      { name: 'item1_2', amount: 10, price: 0, status: STATUSES[:storage] },
+      { name: 'item1_3', amount: 10, price: 111, status: STATUSES[:on_market] }
     ]
   },
   {
-    player_attributes: { nickname: 'player2', currency_amount: 200 },
+    player_attributes: { nickname: 'player2', currency_amount: 5000 },
     items: [
-      {
-        name: 'item2_1', amount: 200, price: 201, status: STATUSES[:on_market]
-      },
-      { name: 'item2_2', amount: 200, price: 202, status: STATUSES[:storage] },
-      { name: 'item2_3', amount: 200, price: 203, status: STATUSES[:on_market] }
+      { name: 'item2_1', amount: 10, price: 201, status: STATUSES[:on_market] },
+      { name: 'item2_2', amount: 10, price: 0, status: STATUSES[:storage] },
+      { name: 'item2_3', amount: 10, price: 203, status: STATUSES[:on_market] }
     ]
   },
   {
-    player_attributes: { nickname: 'player3', currency_amount: 300 },
+    player_attributes: { nickname: 'player3', currency_amount: 3000 },
     items: [
-      {
-        name: 'item3_1', amount: 300, price: 301, status: STATUSES[:on_market]
-      },
-      { name: 'item3_2', amount: 300, price: 302, status: STATUSES[:storage] },
-      { name: 'item3_3', amount: 300, price: 303, status: STATUSES[:on_market] }
+      { name: 'item3_1', amount: 10, price: 301, status: STATUSES[:on_market] },
+      { name: 'item3_2', amount: 10, price: 0, status: STATUSES[:storage] },
+      { name: 'item3_3', amount: 10, price: 303, status: STATUSES[:on_market] }
     ]
   }
 ].freeze

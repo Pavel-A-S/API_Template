@@ -200,16 +200,7 @@ paths:
         description: "Fill data for request"
         required: true
         schema:
-          type: 'object'
-          properties:
-            lot_id:
-              type: integer
-              example: '17'
-            body:
-              type: string
-              example: 'Best advertisement ever'
-          xml:
-            name: advertisement
+          $ref: "#/definitions/request_for_advertisement_creation"
       responses:
         "200":
           description: "Successful operation"
@@ -270,7 +261,7 @@ definitions:
         example: '1'
       amount:
         type: 'integer'
-        example: '50'
+        example: '5'
       price:
         type: 'integer'
         example: '356'
@@ -297,6 +288,20 @@ definitions:
     properties:
       advertisement:
         $ref: "#/definitions/advertisement"
+  request_for_advertisement_creation:
+    type: 'object'
+    properties:
+      lot_id:
+        type: integer
+        example: '2'
+      secret_key:
+        type: 'integer'
+        example: '1'
+      body:
+        type: 'string'
+        example: 'item3_1 - this is absolutely unique item'
+    xml:
+      name: advertisement
   request_for_sending_items_to_market:
     type: 'object'
     properties:
@@ -305,7 +310,7 @@ definitions:
         example: '1'
       amount:
         type: 'integer'
-        example: '50'
+        example: '5'
       price:
         type: 'integer'
         example: '150'
@@ -319,7 +324,7 @@ definitions:
         example: '1'
       amount:
         type: 'integer'
-        example: '50'
+        example: '5'
     xml:
       name: 'lot'
   request_for_lot_recall:

@@ -1,24 +1,20 @@
-# README
+# API
+[![Build Status](https://travis-ci.org/Pavel-A-S/API_Template.svg?branch=main)](https://travis-ci.org/Pavel-A-S/API_Template)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API template for game
 
-Things you may want to cover:
+## How to use
+**To start application run these commands:**
 
-* Ruby version
+```sh
+rake db:migrate
+rake db:seed
+rails s
+```
 
-* System dependencies
+**To look how it works you can use these links:**
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+| Name | Link |
+| ---- | ---- |
+| Main | [http://localhost:3000/api-docs/index.html](http://localhost:3000/api-docs/index.html) |
+| Alternative | [http://localhost:3000](http://localhost:3000) |

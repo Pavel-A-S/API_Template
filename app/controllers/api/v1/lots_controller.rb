@@ -29,11 +29,21 @@ class Api::V1::LotsController < ApplicationController
   def deal_conditions(location)
     return ["lot wasn't found", 404] unless @lot
     return ["storage wasn't found", 422] unless @storage
-    return extra_conditions(location) if extra_conditions(location)
+
+    (exception = location_exceptions(location)) && (return exception)
+    (exception = ovnership_exceptions) && (return exception)
     return ['not enough items', 422] if @lot.amount < params[:amount].to_i
   end
 
-  def extra_conditions(location)
+  def ovnership_exceptions
+    no_ownership = @lot.player.id != @storage.player.id
+    no_right_for_sale = no_ownership && @lot.storage?
+    no_right_to_recall = no_ownership && action_name == 'recall'
+    no_right = no_right_for_sale || no_right_to_recall
+    return ['you have to own this lot', 422] if no_right
+  end
+
+  def location_exceptions(location)
     return unless @lot.send("#{location}?")
     return ['already on the market', 422] if @lot.on_market?
     return ['lot has to be on sale', 422] if @lot.storage?

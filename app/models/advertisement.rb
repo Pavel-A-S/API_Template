@@ -3,13 +3,14 @@ class Advertisement < ApplicationRecord
 
   belongs_to :lot
   has_one :item, through: :lot
+  has_one :player, through: :lot
 
   scope(
     :with_filter, lambda do |parameters|
       condition = {}
       condition1 = parameters.slice(:amount, :price)
       condition2 = parameters.slice(:name)
-      condition = { lots: condition1 } unless condition1.empty?
+      condition = condition.merge(lots: condition1) unless condition1.empty?
       condition = condition.merge(items: condition2) unless condition2.empty?
       where(condition).prepare_result
     end
@@ -22,5 +23,13 @@ class Advertisement < ApplicationRecord
       only: %i[id body],
       include: { lot: { only: LOT_FIELDS }, item: { only: %i[name id] } }
     )
+  end
+
+  def publish
+    player.currency_amount -= GAME_SETTINGS['advertisement']['charge']
+    transaction { player.save! && save! }
+    self
+  rescue ActiveRecord::RecordInvalid => e
+    e
   end
 end

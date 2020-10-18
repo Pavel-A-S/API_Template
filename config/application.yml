@@ -1,0 +1,4 @@
+market:
+  lots_limit: 2
+advertisement:
+  charge: 100

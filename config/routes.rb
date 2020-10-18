@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :markets, only: [:show], controller: 'api/v1/markets'
     resources(
       :advertisements,
-      only: %i[show index create], controller: 'api/v1/advertisements'
+      only: %i[index create], controller: 'api/v1/advertisements'
     )
     resources :lots, only: [], controller: 'api/v1/lots' do
       member do
