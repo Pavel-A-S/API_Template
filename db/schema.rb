@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_10_173908) do
+ActiveRecord::Schema.define(version: 2020_10_19_001532) do
 
   create_table "advertisements", force: :cascade do |t|
     t.integer "lot_id"
