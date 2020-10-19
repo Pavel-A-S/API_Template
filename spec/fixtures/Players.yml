@@ -1,0 +1,11 @@
+player1:
+  id: 1
+  nickname: 'player1'
+  currency_amount: 1000
+  storage_id: 1
+
+player2:
+  id: 2
+  nickname: 'player2'
+  currency_amount: 2000
+  storage_id: 2

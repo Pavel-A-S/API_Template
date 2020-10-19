@@ -1,0 +1,31 @@
+on_market_player1:
+  id: 1
+  item_id: 1
+  storage_id: 1
+  amount: 5
+  price: 100
+  status: <%= Lot.statuses[:on_market] %>
+
+on_store_player1:
+  id: 2
+  item_id: 2
+  storage_id: 1
+  amount: 5
+  price: 100
+  status: <%= Lot.statuses[:storage] %>
+
+on_market_player2:
+  id: 3
+  item_id: 3
+  storage_id: 2
+  amount: 5
+  price: 100
+  status: <%= Lot.statuses[:on_market] %>
+
+on_store_player2:
+  id: 4
+  item_id: 4
+  storage_id: 2
+  amount: 5
+  price: 100
+  status: <%= Lot.statuses[:storage] %>
